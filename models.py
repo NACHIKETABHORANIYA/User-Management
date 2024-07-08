@@ -1,11 +1,13 @@
+import os
+
+from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy import Column, Integer, String, UniqueConstraint
 
-# DATABASE_URL = "postgresql+asyncpg://user:password@localhost/dbname"
-# DATABASE_URL = "mysql+asyncmy://user:password@localhost/dbname"
-# DATABASE_URL = "mysql+asyncmy://localhost:27017"
-DATABASE_URL = "mysql+asyncmy://root:root@localhost:3306/user_management"
+load_dotenv(override=True)
+
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 engine = create_async_engine(DATABASE_URL, echo=True)
 SessionLocal = sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False)

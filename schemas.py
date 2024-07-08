@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field
-from typing import Optional
+from typing import Optional, List
 
 
 class UserManage(BaseModel):
@@ -17,18 +17,16 @@ class UserManage(BaseModel):
     hashtag: Optional[str] = Field(None, description="tag of user")
 
 
-# class UserCreate(UserManage):
-#     # password: str
-#     pass
-#
-#
-# class UserUpdate(UserManage):
-#     # password: str
-#     pass
-
-
 class UserInDB(UserManage):
     id: int
 
     class Config:
         orm_mode: True
+
+
+class SendEmailResponse(BaseModel):
+    message: str
+
+
+class SendEmailRequest(BaseModel):
+    list_of_users: List[str]
